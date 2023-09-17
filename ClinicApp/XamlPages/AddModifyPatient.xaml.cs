@@ -41,6 +41,8 @@ namespace ClinicApp.XamlPages
         {
             datePickerBirth.DisplayDateStart = DateTime.Now.AddYears(-100);
             datePickerBirth.DisplayDateEnd = DateTime.Now;
+            datePickerBirth.BlackoutDates.Add(new CalendarDateRange(DateTime.Today.AddDays(1),
+                             new DateTime(9999, 12, 31)));
         }
 
         private async void btnSubmit_Click(object sender, RoutedEventArgs e)
@@ -79,6 +81,13 @@ namespace ClinicApp.XamlPages
                 {
                     status = false;
                     messageBuilder.Append("Адрес - обязательное поле для ввода.\n");
+
+                }
+
+                if (dateOfBirth > DateTime.Now)
+                {
+                    status = false;
+                    messageBuilder.Append("Введена некорректная дата рождения.\n");
 
                 }
                 #endregion
